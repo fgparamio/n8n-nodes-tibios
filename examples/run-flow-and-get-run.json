@@ -1,0 +1,81 @@
+{
+	"name": "TibiOS - Run a flow and read the run",
+	"nodes": [
+		{
+			"id": "m1",
+			"name": "When clicking 'Execute workflow'",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [0, 0],
+			"parameters": {}
+		},
+		{
+			"id": "r1",
+			"name": "Run a flow",
+			"type": "n8n-nodes-tibios.tibios",
+			"typeVersion": 1,
+			"position": [260, 0],
+			"parameters": {
+				"resource": "flow",
+				"operation": "run",
+				"flow": "flujo-nuevo",
+				"text": "Dame la temperatura hoy de Mérida",
+				"dry": true,
+				"waitForResult": true,
+				"pollInterval": 5,
+				"timeout": 10
+			},
+			"credentials": {
+				"tibiOSApi": {
+					"id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+					"name": "TibiOS fleet"
+				}
+			}
+		},
+		{
+			"id": "r2",
+			"name": "Get a run",
+			"type": "n8n-nodes-tibios.tibios",
+			"typeVersion": 1,
+			"position": [520, 0],
+			"parameters": {
+				"resource": "flow",
+				"operation": "getRun",
+				"runId": "={{ $json.runId }}"
+			},
+			"credentials": {
+				"tibiOSApi": {
+					"id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+					"name": "TibiOS fleet"
+				}
+			}
+		}
+	],
+	"connections": {
+		"When clicking 'Execute workflow'": {
+			"main": [
+				[
+					{
+						"node": "Run a flow",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		},
+		"Run a flow": {
+			"main": [
+				[
+					{
+						"node": "Get a run",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		}
+	},
+	"settings": {
+		"executionOrder": "v1"
+	}
+}

@@ -1,0 +1,75 @@
+{
+	"name": "TibiOS - Ask the fleet",
+	"nodes": [
+		{
+			"id": "m1",
+			"name": "When clicking 'Execute workflow'",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [0, 0],
+			"parameters": {}
+		},
+		{
+			"id": "a1",
+			"name": "Ask the fleet",
+			"type": "n8n-nodes-tibios.tibios",
+			"typeVersion": 1,
+			"position": [260, -100],
+			"parameters": {
+				"resource": "chat",
+				"operation": "ask",
+				"model": "auto",
+				"prompt": "¿Quién es Marcelo?",
+				"options": {}
+			},
+			"credentials": {
+				"tibiOSApi": {
+					"id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+					"name": "TibiOS fleet"
+				}
+			}
+		},
+		{
+			"id": "a2",
+			"name": "Ask the fleet with web search",
+			"type": "n8n-nodes-tibios.tibios",
+			"typeVersion": 1,
+			"position": [260, 100],
+			"parameters": {
+				"resource": "chat",
+				"operation": "ask",
+				"model": "auto",
+				"prompt": "temperatura hoy en Madrid",
+				"searchTheWeb": true,
+				"options": {}
+			},
+			"credentials": {
+				"tibiOSApi": {
+					"id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+					"name": "TibiOS fleet"
+				}
+			}
+		}
+	],
+	"connections": {
+		"When clicking 'Execute workflow'": {
+			"main": [
+				[
+					{
+						"node": "Ask the fleet",
+						"type": "main",
+						"index": 0
+					},
+					{
+						"node": "Ask the fleet with web search",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		}
+	},
+	"settings": {
+		"executionOrder": "v1"
+	}
+}

@@ -1,0 +1,53 @@
+{
+	"name": "TibiOS - Receive a flow's webhook send",
+	"nodes": [
+		{
+			"id": "w1",
+			"name": "TibiOS sends here",
+			"type": "n8n-nodes-base.webhook",
+			"typeVersion": 2,
+			"position": [0, 0],
+			"webhookId": "6f1f3a8e-2b1c-4d5e-9f00-7b1d5e000001",
+			"parameters": {
+				"httpMethod": "POST",
+				"path": "tibios-run",
+				"responseMode": "onReceived",
+				"options": {}
+			}
+		},
+		{
+			"id": "w2",
+			"name": "Get the whole run",
+			"type": "n8n-nodes-tibios.tibios",
+			"typeVersion": 1,
+			"position": [260, 0],
+			"parameters": {
+				"resource": "flow",
+				"operation": "getRun",
+				"runId": "={{ $json.body.run_id }}"
+			},
+			"credentials": {
+				"tibiOSApi": {
+					"id": "REPLACE_WITH_YOUR_CREDENTIAL_ID",
+					"name": "TibiOS fleet"
+				}
+			}
+		}
+	],
+	"connections": {
+		"TibiOS sends here": {
+			"main": [
+				[
+					{
+						"node": "Get the whole run",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		}
+	},
+	"settings": {
+		"executionOrder": "v1"
+	}
+}

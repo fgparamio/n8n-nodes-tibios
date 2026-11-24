@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-tibios.tibios",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Productivity", "Development"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://github.com/fgparamio/n8n-nodes-tibios#credentials"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://github.com/fgparamio/n8n-nodes-tibios#readme"
+			}
+		]
+	}
+}
